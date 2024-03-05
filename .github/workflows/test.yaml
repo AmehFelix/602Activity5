@@ -1,0 +1,31 @@
+name: Test PuSHED CODE
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build_and_test:
+    name: Build and Test # The name to show up in GitHub logs
+    # Similar to Docker, we Specify the operating system for the job
+    runs-on: ubuntu-latest # Here the OS is the latest Ubuntu
+
+    # in the following steps, first the code from GitHub repo is fetched
+    steps:
+      - name: Checkout Repository # Arbitrary name
+# Checkout action fetches the repository code (GitHub built-in)
+        uses: actions/checkout@v2 
+      - name: Set up Node.js # The name to show up in GitHub logs
+
+# Setup-node action sets up a Node.js on the action (GitHub built-in)
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14' # Specify the Node.js version
+
+      - name: Install Dependencies # Install project dependencies
+        run: npm install # Run the npm install command to install dependencies
+
+      - name: Run Tests # Run automated tests
+        run: npm test # Run the npm test command to execute tests
